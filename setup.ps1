@@ -1,7 +1,5 @@
 $ErrorActionPreference = "Stop"
 
-$env:ARDUINO_CONFIG_FILE = Join-Path (Get-Location) "arduino-cli.yaml"
-
 
 # Check if arduino-cli is installed
 $isInLocalFolder = Get-ChildItem -Path (Get-Location) -Filter "arduino-cli.exe" -ErrorAction SilentlyContinue
@@ -53,14 +51,39 @@ if ($isInLocalFolder) {
     $arduinoCli = $isInstalled.Source
 }
 
-Write-Host "Using config: $env:ARDUINO_CONFIG_FILE"
+# Add board URL only if missing
+$existing = & $arduinoCli config dump | Select-String "https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
+"
 
-& $arduinoCli config init --overwrite | Out-Null
+if (-not $existing) {
+    Write-Host "Adding board manager URL..."
+    & $arduinoCli config add board_manager.additional_urls https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
+}
 
-Write-Host "Updating index..."
-& $arduinoCli core update-index
+# Install core if not installed
+$coreInstalled = & $arduinoCli core list | Select-String "STMicroelectronics:stm32"
 
-Write-Host "Installing core..."
-& $arduinoCli core install arduino:avr
+if (-not $coreInstalled) {
+    Write-Host "Installing core..."
+    & $arduinoCli core update-index
+    & $arduinoCli core install STMicroelectronics:stm32
+} else {
+    Write-Host "Core already installed."
+}
 
-Write-Host "Done."
+# -------------------------
+# Check if STM32CubeProgrammer is installed
+# -------------------------
+
+$stm32ProgrammerPath = "C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe"
+if (Test-Path $stm32ProgrammerPath) {
+    Write-Host "STM32CubeProgrammer found at: $stm32ProgrammerPath"
+} else {
+    Write-Host "STM32CubeProgrammer not found. Please install it first:"
+    Write-Host "https://www.st.com/en/development-tools/stm32cubeprog.html"
+    Write-Host "After installing, run this script again."
+    exit 1
+}
+
+
+Write-Host "Setup complete. You can now use arduino IDE to program your STM32 boards."
