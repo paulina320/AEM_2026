@@ -2,7 +2,7 @@ import time
 import csv
 import serial
 
-PORT = "COM8"
+PORT = "COM9"
 BAUDRATE = 115200 # is actually completely ignored as we use CDC over USB OTF FS
 TIMEOUT = 0.2
 CSV_FILE = "serial_output.csv"
@@ -33,7 +33,7 @@ def main() -> None:
 				parts = pending_line.split(b"\n")
 				pending_line = parts.pop()
 				for raw_line in parts:
-					writer.writerow([raw_line.rstrip(b"\r").decode("utf-8", errors="replace")])
+					writer.writerow(raw_line.rstrip(b"\r").decode("utf-8", errors="replace").split(","))
 				csv_file.flush()
 				
 			now = time.time()

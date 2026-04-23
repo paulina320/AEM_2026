@@ -14,8 +14,9 @@ void setup() {
 
   Serial.begin(115200);
 
+
   pixi.setPinMode(IN_PIN, analogIn);
-  pixi.setPinADCrange(IN_PIN, ADCZeroTo5);
+  pixi.setPinADCrange(IN_PIN, ADCZeroTo2_5);
   pixi.setPinADCref(IN_PIN, ADCInternal);
   pixi.setADCmode(ContinuousSweep);
 
