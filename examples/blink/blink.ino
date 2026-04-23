@@ -9,5 +9,11 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("some data");
-} 
+  digitalWrite(LED_PIN, LOW);  // LED on
+  Serial.println("LED ON");
+  delay(500);
+
+  digitalWrite(LED_PIN, HIGH);  // LED off
+  Serial.println("LED OFF");
+  delay(500);
+}
