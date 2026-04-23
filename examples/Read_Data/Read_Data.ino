@@ -21,6 +21,7 @@ void setup() {
 
   pinMode(BTN_PIN, INPUT_PULLUP);  
 
+  pixi.setConversionRate(rate200ksps);
 
   pixi.setPinMode(IN_PIN6, analogIn);
   pixi.setPinADCrange(IN_PIN6, ADCZeroTo2_5);
@@ -46,6 +47,6 @@ void loop() {
     Serial.println(val7);
   } 
   else {
-    delayMicroseconds(5);
+    delayMicroseconds(2);
   }
 }
