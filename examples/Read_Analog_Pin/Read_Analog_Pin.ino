@@ -24,6 +24,7 @@ void setup() {
 }
 
 void loop() {
+  
   uint16_t val = pixi.readAnalogPin(IN_PIN);
   Serial.print("Read Analog: ");
   Serial.println(val);

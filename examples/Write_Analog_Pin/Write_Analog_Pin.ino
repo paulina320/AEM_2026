@@ -63,8 +63,8 @@ void loop() {
     int buttonState = digitalRead(BTN_PIN);
     
     if(buttonState == LOW) {
-      int16_t val = generateSample(50000, 150, 100);
-      pixi.writeAnalogPin(OUT_PIN0, val + 150);
+      int16_t val = generateSample(50000, 150, 25);
+      pixi.writeAnalogPin(OUT_PIN0, val );
     }
     else {
       pixi.writeAnalogPin(OUT_PIN0, 0);
