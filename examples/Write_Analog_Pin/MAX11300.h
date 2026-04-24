@@ -204,14 +204,13 @@ class MAX11300 {
 		
 		void serviceInterrupt(void);
 		MAX11300Event getLastEvent (void);
-			uint16_t readRegister (uint8_t address);
 
 	private:
 	
 		// Methods
 		bool writeRegister (uint8_t address, uint16_t value);
 		bool writeRegister (uint8_t address, uint16_t* values, uint8_t size);
-		// uint16_t readRegister (uint8_t address);
+		uint16_t readRegister (uint8_t address);
 		uint16_t readRegister (uint8_t address, uint16_t* values, uint8_t size);
 		bool readModifyWriteRegister (uint8_t address, uint16_t mask, uint16_t value);
 		void startConversion(void);

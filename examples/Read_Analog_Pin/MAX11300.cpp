@@ -466,7 +466,7 @@ bool MAX11300::writeRegister (uint8_t address, uint16_t * values, uint8_t size) 
 	_spi->beginTransaction(*_spiMode);
 	digitalWrite(_select, LOW);
 	//_spi->transfer((address << 1) | 1);
-	_spi->transfer((address << 1) | 0);
+	_spi->transfer((address << 1));
 	for (uint8_t i = 0; i < size; i++) {
 		//_spi->transfer((uint8_t)((values[i] >> 8) && 0xff));
 		//_spi->transfer((uint8_t)(values[i] && 0xff));

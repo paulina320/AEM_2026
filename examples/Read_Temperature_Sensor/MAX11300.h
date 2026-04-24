@@ -63,8 +63,8 @@ enum ADCref_t {
 };
 
 enum DACref_t {
-	DACInternal = 	0x0000,
-	DACExternal = 	(1 << MAX_DACREF),
+	DACInternal =  (1 << MAX_DACREF),
+	DACExternal =  0x0000,
 	DACrefNONE = 	0xffff
 };
 
@@ -204,7 +204,7 @@ class MAX11300 {
 		
 		void serviceInterrupt(void);
 		MAX11300Event getLastEvent (void);
-	
+
 	private:
 	
 		// Methods
