@@ -14,3 +14,4 @@ Windows:
   powershell -ExecutionPolicy Bypass -File .\setup.ps1
 
 ## Setup - Manual
+See `docs`
